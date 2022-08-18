@@ -1,0 +1,13 @@
+- quando receber os valores do db, o site devera comecar com as functions totais, pois os valores
+dentro das caixas ja sera estabelecido.
+
+- SOMENTE os valores das caixas das notas serao enviados para o db, o total NAO e necessario.
+
+- no final do projeto, retirar todos os valores das caixas com "nota X" e "Nota Total", deixando elas vazias.
+
+- as variaveis com os valores das notas nao serao apagadas, dentro das funcitons tera a determinacao do
+valor das variaveis E a atribuicao ao bd.
+
+-no prompt, a funcao "cancelar" nao mudara o valor da caixa.
+
+- REFAZER O CLASS PERFORMANCE (so pode entrar UM valor, ate 50).

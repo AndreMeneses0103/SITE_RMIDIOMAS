@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boletim</title>
+  <script src="script.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <img src="img.webp" id="img1" />
+
+  <h1>Name: Fulano</h1>
+  <h2>Book: FC1A</h2>
+  <h3>RM: X</h3>
+
+  <table id="tabela1">
+    <tr>
+      <th>Grading Criterias</th>
+      <th>Points</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>Total</th>
+    </tr>
+
+    <tr>
+      <th>Listening</th>
+      <th>15</th>
+      <th class="notas">
+        <button class="botao" id="list1" onclick="viewlist1()">Nota 1</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="list2" onclick="viewlist2()">Nota 2</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="list3" onclick="viewlist3()">Nota 3</button>
+      </th>
+      <th id="listtotal"></th>
+    </tr>
+    <tr>
+      <th>Self-Study</th>
+      <th>15</th>
+      <th class="notas">
+        <button class="botao" id="self1" onclick="viewSelf1()">Nota 1</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="self2" onclick="viewSelf2()">Nota 2</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="self3" onclick="viewSelf3()">Nota 3</button>
+      </th>
+      <th id="selftotal"></th>
+    </tr>
+    <tr>
+      <th>Video Test</th>
+      <th>30</th>
+      <th class="notas">
+        <button class="botao" id="video1" onclick="viewVideo1()">
+          Nota 1
+        </button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="video2" onclick="viewVideo2()">
+          Nota 2
+        </button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="video3" onclick="viewVideo3()">
+          Nota 3
+        </button>
+      </th>
+      <th id="videototal"></th>
+    </tr>
+    <tr>
+      <th>Workbook</th>
+      <th>30</th>
+      <th class="notas">
+        <button class="botao" id="book1" onclick="viewBook1()">Nota 1</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="book2" onclick="viewBook2()">Nota 2</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="book3" onclick="viewBook3()">Nota 3</button>
+      </th>
+      <th id="booktotal"></th>
+    </tr>
+    <tr>
+      <th>Vocabulary Test</th>
+      <th>30</th>
+      <th class="notas">
+        <button class="botao" id="voc1" onclick="viewVoc1()">Nota 1</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="voc2" onclick="viewVoc2()">Nota 2</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="voc3" onclick="viewVoc3()">Nota 3</button>
+      </th>
+      <th id="voctotal"></th>
+    </tr>
+
+    <tr>
+      <th>Class Performance</th>
+      <th>50</th>
+      <th class="notas" colspan="3">
+        <button class="botao" id="class1" onclick="viewClass1()">
+          Nota 1
+        </button>
+      </th>
+      <th id="classtotal"></th>
+    </tr>
+
+    <tr>
+      <th>Quizzes</th>
+      <th>150</th>
+      <th class="notas">
+        <button class="botao" id="quiz1" onclick="viewQuiz1()">Nota 1</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="quiz2" onclick="viewQuiz2()">Nota 2</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="quiz3" onclick="viewQuiz3()">Nota 3</button>
+      </th>
+      <th id="quiztotal"></th>
+    </tr>
+
+    <tr>
+      <th>Project</th>
+      <th>180</th>
+      <th class="notas">
+        <button class="botao" id="project1" onclick="viewProj1()">
+          Nota 1
+        </button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="project2" onclick="viewProj2()">
+          Nota 2
+        </button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="project3" onclick="viewProj3()">
+          Nota 3
+        </button>
+      </th>
+      <th id="projecttotal"></th>
+    </tr>
+  </table>
+
+  <table id="tabela2">
+    <tr>
+      <th>Total(500)</th>
+      <th id="notatotal" width="60px"></th>
+    </tr>
+    <tr>
+      <th>1st Average</th>
+      <th id="mediatotal"></th>
+    </tr>
+    <tr>
+      <th>Abstences</th>
+      <th id="abst">0</th>
+    </tr>
+    <tr>
+      <th colspan="2" id="inv">
+        <button class="btnmuda" onclick="maisAbstences()">↑</button>
+        <button class="btnmuda" onclick="menosAbstences()">↓</button>
+      </th>
+    </tr>
+
+  </table>
+
+
+  <!-- SEGUNDA PARTE DAS NOTAS!!! -->
+
+  <table id="tabela3">
+    <tr>
+      <th>Grading Criterias</th>
+      <th>Points</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>Total</th>
+    </tr>
+
+    <tr>
+      <th>Listening</th>
+      <th>15</th>
+      <th class="notas">
+        <button class="botao" id="list4" onclick="viewlist4()">Nota 4</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="list5" onclick="viewlist5()">Nota 5</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="list6" onclick="viewlist6()">Nota 6</button>
+      </th>
+      <th id="listtotal2"></th>
+    </tr>
+    <tr>
+      <th>Self-Study</th>
+      <th>15</th>
+      <th class="notas">
+        <button class="botao" id="self4" onclick="viewSelf4()">Nota 4</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="self5" onclick="viewSelf5()">Nota 5</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="self6" onclick="viewSelf6()">Nota 6</button>
+      </th>
+      <th id="selftotal2"></th>
+    </tr>
+    <tr>
+      <th>Video Test</th>
+      <th>30</th>
+      <th class="notas">
+        <button class="botao" id="video4" onclick="viewVideo4()">
+          Nota 4
+        </button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="video5" onclick="viewVideo5()">
+          Nota 5
+        </button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="video6" onclick="viewVideo6()">
+          Nota 6
+        </button>
+      </th>
+      <th id="videototal2"></th>
+    </tr>
+    <tr>
+      <th>Workbook</th>
+      <th>30</th>
+      <th class="notas">
+        <button class="botao" id="book4" onclick="viewBook4()">Nota 4</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="book5" onclick="viewBook5()">Nota 5</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="book6" onclick="viewBook6()">Nota 6</button>
+      </th>
+      <th id="booktotal2"></th>
+    </tr>
+    <tr>
+      <th>Vocabulary Test</th>
+      <th>30</th>
+      <th class="notas">
+        <button class="botao" id="voc4" onclick="viewVoc4()">Nota 4</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="voc5" onclick="viewVoc5()">Nota 5</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="voc6" onclick="viewVoc6()">Nota 6</button>
+      </th>
+      <th id="voctotal2"></th>
+    </tr>
+
+    <tr>
+      <th>Class Performance</th>
+      <th>50</th>
+      <th class="notas" colspan="3">
+        <button class="botao" id="class2" onclick="viewClass2()">
+          Nota 4
+        </button>
+      </th>
+      <th id="classtotal2"></th>
+    </tr>
+
+    <tr>
+      <th>Quizzes</th>
+      <th>150</th>
+      <th class="notas">
+        <button class="botao" id="quiz4" onclick="viewQuiz4()">Nota 4</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="quiz5" onclick="viewQuiz5()">Nota 5</button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="quiz6" onclick="viewQuiz6()">Nota 6</button>
+      </th>
+      <th id="quiztotal2"></th>
+    </tr>
+
+    <tr>
+      <th>Project</th>
+      <th>180</th>
+      <th class="notas">
+        <button class="botao" id="project4" onclick="viewProj4()">
+          Nota 4
+        </button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="project5" onclick="viewProj5()">
+          Nota 5
+        </button>
+      </th>
+      <th class="notas">
+        <button class="botao" id="project6" onclick="viewProj6()">
+          Nota 6
+        </button>
+      </th>
+      <th id="projecttotal2"></th>
+    </tr>
+  </table>
+
+  <table id="tabela4">
+    <tr>
+      <th>Total(500)</th>
+      <th id="notatotal2"></th>
+    </tr>
+    <tr>
+      <th>1st Average</th>
+      <th id="mediatotal2"></th>
+    </tr>
+    <tr>
+      <th>Abstences</th>
+      <th id="abst2">0</th>
+    </tr>
+    <tr>
+      <th colspan="2" id="inv">
+        <button class="btnmuda" onclick="maisAbstences2()">↑</button>
+        <button class="btnmuda" onclick="menosAbstences2()">↓</button>
+      </th>
+    </tr>
+
+  </table>
+
+  <div id="caixa">
+    <div id="textofinal">Final Average</div>
+    <div id="notafinal"></div>
+  </div>
+  
+
+  <h6>TERMINAR O BANCO (CREATE E DELETE)</h6>
+  <button id="salvar">Save</button>
+
+</body>
+
+</html>

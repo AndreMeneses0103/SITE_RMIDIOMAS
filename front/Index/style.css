@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+body{
+    font-family: 'Lato', sans-serif;
+}
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: #11b4b4;
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+h1{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 0;
+
+}
+#user{
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid black;
+    height: 20px;    
+}
+
+#botao{
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #fff;
+    transition: ease 0.3s;
+}
+
+#botao:hover{
+    background-color: rgb(82, 75, 182);
+}
+

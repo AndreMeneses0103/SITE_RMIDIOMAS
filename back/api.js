@@ -1,32 +1,35 @@
 const express = require("express")
 const ex = express()
 const mysql = require("mysql2");
+const path = require("path");
 
-ex.use('/', express.static("C:/Users/andre/Desktop/Just Coding/WEB/TESTES_RM/InsercaoNotaBd/front/Index"));
+ex.use('/', express.static("../front/Index"));
 
 ex.use(express.urlencoded({ extended: false }))
 //O USE ACIMA SERVE PARA O REQ RECONHECER O NAME DO BODY (NO POST)
 
+ex.use(express.json());
+
 ex.get("/stylegrade", function (req, res) {
-    res.sendFile("C:/Users/andre/Desktop/Just Coding/WEB/TESTES_RM/InsercaoNotaBd/front/PaginaNota/style.css")
+    res.sendFile(path.join(__dirname, '../front/PaginaNota', 'style.css'))
 })
 
 ex.get("/img", function (req, res) {
-    res.sendFile("C:/Users/andre/Desktop/Just Coding/WEB/TESTES_RM/InsercaoNotaBd/front/PaginaNota/img.webp")
+    res.sendFile(path.join(__dirname, '../front/PaginaNota', 'img.webp'))
 })
 
 ex.get("/script", function (req, res) {
-    res.sendFile("C:/Users/andre/Desktop/Just Coding/WEB/TESTES_RM/InsercaoNotaBd/front/PaginaNota/script.js")
+    res.sendFile(path.join(__dirname, '../front/PaginaNota', 'script.js'))
 })
 
 
 ex.get("/aluno", function (req, res) {
 
-    var pessoa = req.query.usuario
+    var pessoa = req.query.usuario;
 
     function conecta() {
         const user = "root";
-        const banco = "db_escola";
+        const banco = "escola_db";
         const port = 3306;
         const password = "";
 
@@ -67,7 +70,7 @@ ex.get("/aluno", function (req, res) {
             </html>
             `);
         }else{
-            const query = "SELECT * FROM tbl_aluno WHERE rm = ?"
+            var query = "SELECT * FROM tbl_aluno WHERE rm = ?"
 
             con.query(query, pessoa, function (error, data) {
             if(error)throw error;
@@ -91,7 +94,7 @@ ex.get("/aluno", function (req, res) {
                             <h1>Criar</h1>
                             <h2>Deseja inserir um novo aluno neste RM?</h2>
                             <div class="buttons">
-                                <button id="criar" class="botao" onclick="confirma()">Criar</button>
+                                <button id="criar" class="botao" onclick="cadastro()">Criar</button>
                                 <button id="voltar" class="botao" onclick="back()">Voltar</button>
                             </div>
                         </div>
@@ -172,7 +175,7 @@ ex.get("/aluno", function (req, res) {
                 project[5] = value.project6;
                 
                 abstences[0] = value.abs1;
-                abstences[1] = value.abs1;
+                abstences[1] = value.abs2;
                 res.send(`
         
                 <!DOCTYPE html>
@@ -187,7 +190,7 @@ ex.get("/aluno", function (req, res) {
                   <link rel="stylesheet" href="stylegrade" />
                 </head>
                 
-                <body onload="setValores(); printa();">
+                <body onload="setValores();">
                   <img src="img" id="img1" />
                 
                   <h1>Name: `+nome+`</h1>
@@ -517,8 +520,8 @@ ex.get("/aluno", function (req, res) {
                   </div>
                   
                 
-                  <h6>TERMINAR O BANCO (CREATE E DELETE)</h6>
-                  <button id="salvar">Save</button>
+                  <button id="salvar" onclick="update()">Save</button>
+                  <button id="deletar">Delete</button>
                 
                 </body>
                 
@@ -527,19 +530,142 @@ ex.get("/aluno", function (req, res) {
             }
         })
         }
+
+        ex.get("/cadastro", function(req,res){
+          res.send(
+            `
+            <!DOCTYPE html>
+            <html lang="pt-br">
+            
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="style4.css">
+                <script src="script.js"></script>
+                <title>Criar</title>
+            </head>
+            
+            <body>
+                <div class="window">
+                    <h1>Dados</h1>
+                    <h2>Digite o nome do aluno:</h2>
+                    <input type="text" id="nome">
+                    <h3>Selecione o Livro do Aluno:</h3>
+                    <select name="livros" id="livros">
+                        <optgroup label="FC1">
+                            <option value="FC1A">FC1A</option>
+                            <option value="FC1B">FC1B</option>
+                        </optgroup>
+                        <optgroup label="FC2">
+                            <option value="FC2A">FC2A</option>
+                            <option value="FC2B">FC2B</option>
+                        </optgroup>
+                        <optgroup label="FC3">
+                            <option value="FC3A">FC3A</option>
+                            <option value="FC3B">FC3B</option>
+                        </optgroup>
+                    </select>
+                    
+                    
+                    
+                    <div class="buttons">
+                        <button id="cadastro" class="botao" onclick="confirma()">Criar</button>
+                        <button id="voltar" class="botao" onclick="back()">Voltar</button>
+                    </div>
+                </div>
+            </body>
+            
+            </html>
+            `
+          );
+          
+        })
+
+
+
+      ex.get("/create", function(req,res){
+        var usuario = req.query.usuario
+        var nome = req.query.nome
+        var livro = req.query.livro
+        var create = "INSERT INTO tbl_aluno values("+usuario+", '"+nome+"', '"+livro+"', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','','','','','', '', '','','','','','','','','','','','','','');"
+        con.query(create, function(err, data){
+            res.redirect("http://localhost:3000/aluno?usuario=" + usuario);
+        })
+      })
+
     })
 
+    ex.post("/update", function(req,res){
+      var nlist1 = '"'+req.body.list1+'"';
+      var nlist2 = '"'+req.body.list2+'"';
+      var nlist3 = '"'+req.body.list3+'"';
+      var nlist4 = '"'+req.body.list4+'"';
+      var nlist5 = '"'+req.body.list5+'"';
+      var nlist6 = '"'+req.body.list6+'"';
     
+      var nself1 = '"'+req.body.self1+'"';
+      var nself2 = '"'+req.body.self2+'"';
+      var nself3 = '"'+req.body.self3+'"';
+      var nself4 = '"'+req.body.self4+'"';
+      var nself5 = '"'+req.body.self5+'"';
+      var nself6 = '"'+req.body.self6+'"';
+    
+      var nvideo1 = '"'+req.body.video1+'"';
+      var nvideo2 = '"'+req.body.video2+'"';
+      var nvideo3 = '"'+req.body.video3+'"';
+      var nvideo4 = '"'+req.body.video4+'"';
+      var nvideo5 = '"'+req.body.video5+'"';
+      var nvideo6 = '"'+req.body.video6+'"';
+    
+      var nbook1 = '"'+req.body.book1+'"';
+      var nbook2 = '"'+req.body.book2+'"';
+      var nbook3 = '"'+req.body.book3+'"';
+      var nbook4 = '"'+req.body.book4+'"';
+      var nbook5 = '"'+req.body.book5+'"';
+      var nbook6 = '"'+req.body.book6+'"';
+    
+      var nvoc1 = '"'+req.body.voc1+'"';
+      var nvoc2 = '"'+req.body.voc2+'"';
+      var nvoc3 = '"'+req.body.voc3+'"';
+      var nvoc4 = '"'+req.body.voc4+'"';
+      var nvoc5 = '"'+req.body.voc5+'"';
+      var nvoc6 = '"'+req.body.voc6+'"';
+    
+      var nclass1 = '"'+req.body.class1+'"';
+      var nclass2 = '"'+req.body.class2+'"';
+      
+      var nquiz1 = '"'+req.body.quiz1+'"';
+      var nquiz2 = '"'+req.body.quiz2+'"';
+      var nquiz3 = '"'+req.body.quiz3+'"';
+      var nquiz4 = '"'+req.body.quiz4+'"';
+      var nquiz5 = '"'+req.body.quiz5+'"';
+      var nquiz6 = '"'+req.body.quiz6+'"';
+      
+      var nproject1 = '"'+req.body.project1+'"';
+      var nproject2 = '"'+req.body.project2+'"';
+      var nproject3 = '"'+req.body.project3+'"';
+      var nproject4 = '"'+req.body.project4+'"';
+      var nproject5 = '"'+req.body.project5+'"';
+      var nproject6 = '"'+req.body.project6+'"';
+    
+      var nabs1 = '"'+req.body.abs1+'"';
+      var nabs2 = '"'+req.body.abs2+'"';
+    
+      var aluno =  '"'+req.body.aluno+'"';
+    
+      var update = 'UPDATE tbl_aluno SET list1='+nlist1+',list2='+nlist2+',list3='+nlist3+',list4='+nlist4+',list5='+nlist5+',list6='+nlist6+',self1='+nself1+',self2='+nself2+',self3='+nself3+',self4='+nself4+',self5='+nself5+',self6='+nself6+',video1='+nvideo1+',video2='+nvideo2+',video3='+nvideo3+',video4='+nvideo4+',video5='+nvideo5+',video6='+nvideo6+',book1='+nbook1+',book2='+nbook2+',book3='+nbook3+',book4='+nbook4+',book5='+nbook5+',book6='+nbook6+',voc1='+nvoc1+',voc2='+nvoc2+',voc3='+nvoc3+',voc4='+nvoc4+',voc5='+nvoc5+',voc6='+nvoc6+',class1='+nclass1+',class2='+nclass2+',quiz1='+nquiz1+',quiz2='+nquiz2+',quiz3='+nquiz3+',quiz4='+nquiz4+',quiz5='+nquiz5+',quiz6='+nquiz6+',project1='+nproject1+',project2='+nproject2+',project3='+nproject3+',project4='+nproject4+',project5='+nproject5+',project6='+nproject6+',abs1='+nabs1+',abs2='+nabs2+' WHERE rm = ' + aluno + '';
+      var url = require('url');
 
-    
+      con.query(update, function(err,data){
+        console.log("Alteracao realizada")
+        res.redirect(req.path);
+      })
+    })
 })
 
 ex.get("/", function (req, res) {
     res.sendFile(__dirname + '/front')
-})
-
-ex.get("/create", function(req,res){
-    res.send("Usuario e: " + req.query.usuario)
 })
 
 ex.listen(3000, function () {
